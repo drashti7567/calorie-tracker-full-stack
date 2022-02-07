@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-md fixed-top navbar-dark flex-fill">
+
+  <!-- header -->
+  <div class="navbar-header pl-2 pr-2 ml-3 text-center">
+    <div class="nav-item navicon">
+      <a class="btn nav-link" (click)="toggleSidebarPin()"><i class="fa fa-bars"></i></a>
+    </div>
+    <a class="navbar-brand m-0" href="#">
+      <!-- <i class="fa fa-flash mr-1"></i> -->
+      <img src="./assets/img/logo.png" alt="Calory Pal logo" width="35px">
+      <span class="ml-1">Calory Pal</span>
+    </a>
+  </div>
+  
+  <!-- sidebar toggler -->
+  <div class="sidebar-toggler ml-auto mr-3">
+    <a class="btn nav-link" (click)="toggleSidebar()"><i class="fa fa-bars"></i></a>
+  </div>
+  
+  <!-- right menu toggler -->
+  <div class="nav-toggler-right mr-4 d-md-none">
+    <button class="" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+      aria-controls="collapseBasic">
+      <!-- // <span class="navbar-toggler-icon"></span> -->
+      <img src="./assets/img/user.jpg" class="img-fluid" alt="">
+    </button>
+    <span class="user-profile nav-alert bg-danger"></span>
+  </div>
+  
+  <!-- left box -->
+  <ul class="navbar-nav flex-fill mt-1 align-items-center left-nav">
+    <li class="nav-item flex-fill">
+      <!-- <input class="form-control navbar-search" type="text" placeholder="Search . . ."> -->
+    </li>
+    <div class="nav-toggler-right mr-4 ">
+      <button class="" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+        aria-controls="collapseBasic">
+        <!-- // <span class="navbar-toggler-icon"></span> -->
+        <img src="./assets/img/user.jpg" class="img-fluid" alt="">
+      </button>
+      <span class="user-profile nav-alert bg-danger"></span>
+    </div>
+  </ul>
+
+</nav>

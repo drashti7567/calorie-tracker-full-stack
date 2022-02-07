@@ -1,0 +1,31 @@
+.card {
+  .card-icon {
+    i {
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      border-radius: 50%;
+      font-size: 3rem;
+    }
+  }
+  .legend{
+    span:first-child{
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  .tg-label-p {
+    margin-bottom: 0 !important;
+  }
+
+  .card-text, .card-title {
+    text-transform: capitalize;
+    color: $navbar-bg-color !important;
+  }
+
+  .card-label {
+    text-transform: capitalize;
+  }
+}
