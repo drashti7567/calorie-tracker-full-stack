@@ -161,14 +161,27 @@ public class FoodEntryServiceImpl implements FoodEntryService {
         List<FoodEntry> foodEntryList = this.getListOfEntries(user, params);
 
         List<FoodEntryFields> foodEntryFieldsList = foodEntryList.stream()
-                .map(entry -> FoodEntryMapper.convertEntityToEntryFields(entry, user))
-                .collect(Collectors.toList());
+                .map(FoodEntryMapper::convertEntityToEntryFields).collect(Collectors.toList());
 
         Optional<CalorieLimit> optionalCalorieLimit = this.calorieLimitRepository.findById(user.getUserId());
         CalorieLimit calorieLimit  = optionalCalorieLimit.isPresent() ? optionalCalorieLimit.get() : null;
 
         GetFoodEntriesResponse response = this.generateGetFoodEntriesResponse(foodEntryFieldsList, calorieLimit);
 
+        return response;
+    }
+
+    @Override
+    public GetFoodEntriesResponse getAllEntries() {
+        /**
+         * Main service function to get all the food entries
+         * Admin Only
+         */
+
+        List<FoodEntry> foodEntryList = this.foodEntryRepository.findAll();
+        List<FoodEntryFields> foodEntryFieldsList = foodEntryList.stream()
+                .map(FoodEntryMapper::convertEntityToEntryFields).collect(Collectors.toList());
+        GetFoodEntriesResponse response =  this.generateGetFoodEntriesResponse(foodEntryFieldsList, null);
         return response;
     }
 }

@@ -27,14 +27,14 @@ public class FoodEntryMapper {
         return entry;
     }
 
-    public static FoodEntryFields convertEntityToEntryFields(FoodEntry foodEntry, Users user) {
+    public static FoodEntryFields convertEntityToEntryFields(FoodEntry foodEntry) {
         /**
          * Mapper function to convert FoodEntry Entity to GetFoodEntriesResponse Fields
          */
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         FoodEntryFields entryFields = mapper.map(foodEntry, FoodEntryFields.class);
-        entryFields.setUserId(user.getUserId());
-        entryFields.setUserName(user.getName());
+        entryFields.setUserId(foodEntry.getUser().getUserId());
+        entryFields.setUserName(foodEntry.getUser().getName());
         entryFields.setEatingTime(foodEntry.getEatTime().toString());
         return entryFields;
     }

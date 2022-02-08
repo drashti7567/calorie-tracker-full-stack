@@ -11,6 +11,7 @@ import com.toptal.caloriecount.shared.constants.ReturnCodeConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -113,6 +114,21 @@ public class FoodEntryController {
             log.error(e.getMessage());
             return ResponseEntity.ok(new MessageResponse(e.getMessage(),
                     false, ReturnCodeConstants.USER_NOT_FOUND_ERROR));
+        }
+        catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage(), false, "CC-411" ));
+        }
+    }
+
+    @GetMapping("${calorieCount.app.getAllEntries}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getAllEntries() {
+        try {
+            log.info("Get All Food Entries Service started");
+            GetFoodEntriesResponse response = foodEntryService.getAllEntries();
+            log.info("Get All Food Entries Service completed successfully");
+            return ResponseEntity.ok(response);
         }
         catch (Exception e) {
             log.error(e.getMessage());
