@@ -28,7 +28,8 @@ public class CalorieLimitServiceImpl implements CalorieLimitService {
     CalorieLimitRepository calorieLimitRepository;
 
     @Override
-    public MessageResponse updateCalorieLimit(String userId, UpdateCalorieLimitRequest request) throws UserIdNotFoundException {
+    public MessageResponse updateCalorieLimit(String userId, UpdateCalorieLimitRequest request)
+            throws UserIdNotFoundException {
         /**
          * Main Service function to update the calorie limit of a user.
          */
@@ -46,7 +47,7 @@ public class CalorieLimitServiceImpl implements CalorieLimitService {
                     new Timestamp((new Date()).getTime()));
             this.calorieLimitRepository.save(calorieLimit);
         }
-        return new MessageResponse(MessageConstants.UPDATE_ENTRY_SUCCESSFUL + userId,
+        return new MessageResponse(MessageConstants.UPDATE_CALORIE_LIMIT_SUCCESSFUL + userId,
                 true, ReturnCodeConstants.SUCESS);
     }
 }

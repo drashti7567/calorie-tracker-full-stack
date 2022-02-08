@@ -1,14 +1,12 @@
 package com.toptal.caloriecount.payloads.response.misc;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class MessageResponse {
     private String message;
     private boolean success;

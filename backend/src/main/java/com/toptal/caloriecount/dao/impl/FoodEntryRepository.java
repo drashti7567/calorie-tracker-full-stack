@@ -27,5 +27,9 @@ public interface FoodEntryRepository extends JpaRepository<FoodEntry, String> {
     @Query("select e from FoodEntry e where e.user = :user and e.eatTime >= :dateFrom and e.eatTime <= :dateTo order by e.eatTime")
     List<FoodEntry> getFoodEntries(@Param("dateFrom") Timestamp dateFrom, @Param("dateTo") Timestamp dateTo, @Param("user") Users user);
 
+
+    @Query("select e from FoodEntry e where e.eatTime >= :dateFrom and e.eatTime <= :dateTo order by e.eatTime")
+    List<FoodEntry> getAllFoodEntries(@Param("dateFrom") Timestamp dateFrom, @Param("dateTo") Timestamp dateTo);
+
     List<FoodEntry> findAllByUserOrderByEatTime(Users user);
 }
