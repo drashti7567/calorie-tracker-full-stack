@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.toptal</groupId>
-	<artifactId>calory-count</artifactId>
+	<artifactId>calorie-count</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>calory-count</name>
+	<name>calorie-count</name>
 	<description>Demo project for Toptal</description>
 	<properties>
 		<java.version>11</java.version>

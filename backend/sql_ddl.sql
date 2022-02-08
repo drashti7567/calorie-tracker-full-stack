@@ -1,6 +1,6 @@
-create database if not exists calory_count;
+create database if not exists calorie_count;
 
-use calory_count;
+use calorie_count;
 
 CREATE TABLE `users` (
   `user_id` varchar(12) NOT NULL,
@@ -18,10 +18,12 @@ CREATE TABLE `users` (
 
 CREATE TABLE `entry` (
 `entry_id` varchar(12) NOT NULL,
-`date_time` timestamp NOT NULL,
+`eat_time` varchar(20) NOT NULL,
 `food_name` varchar(250) NOT NULL,
 `calories` float NOT NULL,
 `user_id` varchar(12) NOT NULL,
+`creation_timestamp` timestamp not null,
+`last_updated_timestamp` timestamp default null,
 PRIMARY KEY(`entry_id`),
 CONSTRAINT `FK_Entry_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -34,5 +36,6 @@ CREATE TABLE `calorie_limit` (
     `fat` float default 500,
     `height` float default null,
     `weight` float default null,
+    `last_updated_timestamp` timestamp default  null,
     CONSTRAINT `FK_limit_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );

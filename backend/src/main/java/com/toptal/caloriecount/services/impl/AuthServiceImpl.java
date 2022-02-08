@@ -4,6 +4,7 @@ import com.toptal.caloriecount.payloads.request.auth.LoginRequest;
 import com.toptal.caloriecount.payloads.response.auth.JwtResponse;
 import com.toptal.caloriecount.security.jwt.JwtUtils;
 import com.toptal.caloriecount.security.services.UserDetailsImpl;
+import com.toptal.caloriecount.shared.constants.ReturnCodeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +27,10 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public JwtResponse authenticateUser(LoginRequest loginRequest) {
+        /**
+         * Main service function to authenticate a user.
+         * Returns User details along with a JWT authentication token to authorize further API requests
+         */
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
@@ -35,12 +40,13 @@ public class AuthServiceImpl implements AuthService {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
+                .map(item -> item.getAuthority()).collect(Collectors.toList());
+
         JwtResponse response = new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
                 userDetails.getEmail(), userDetails.getName(), roles);
         response.setMessageResponseVariables("User " + response.getEmail() + " authenticated successfully",
-                true, "CC-211");
+                true, ReturnCodeConstants.SUCESS);
+
         return response;
     }
 }

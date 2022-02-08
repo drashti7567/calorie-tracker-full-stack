@@ -14,13 +14,13 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @Slf4j
-@RequestMapping("/api/auth")
+@RequestMapping("${calorieCount.app.authUrl}")
 public class AuthController {
 
     @Autowired
     AuthService authService;
 
-    @PostMapping("/sign-in")
+    @PostMapping("${calorieCount.app.signInUrl}")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         try {
             log.info("Authenticate service started successfully");
