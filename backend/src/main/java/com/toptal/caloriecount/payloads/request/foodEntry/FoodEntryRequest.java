@@ -17,6 +17,6 @@ import java.time.LocalDateTime;
 public class FoodEntryRequest {
     private String userId;
     private String foodName;
-    private String eatTime;
+    private String eatingTime;
     private Float calories;
 }

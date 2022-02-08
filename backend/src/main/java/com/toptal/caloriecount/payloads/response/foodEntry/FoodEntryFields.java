@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class FoodEntryFields {
     private String entryId;
-    private String eatTime;
+    private String eatingTime;
     private String foodName;
     private Float calories;
     private String userId;

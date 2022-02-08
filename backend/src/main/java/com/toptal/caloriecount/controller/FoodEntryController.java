@@ -109,6 +109,11 @@ public class FoodEntryController {
             log.info("Get All Food Entries for" + userId + " Service completed successfully");
             return ResponseEntity.ok(response);
         }
+        catch(UserIdNotFoundException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.ok(new MessageResponse(e.getMessage(),
+                    false, ReturnCodeConstants.USER_NOT_FOUND_ERROR));
+        }
         catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage(), false, "CC-411" ));

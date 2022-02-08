@@ -7,6 +7,7 @@ public class MessageConstants {
     public static final String UPDATE_ENTRY_SUCCESSFUL = "Successfully updated the food entry in the system";
     public static final String DELETE_ENTRY_SUCCESSFUL = "Successfully deleted the food entry in the system";
     public static final String GET_ENTRY_SUCCESSFUL = "Successfully retrieved the food entries from the system";
+    public static final String UPDATE_CALORIE_LIMIT_SUCCESSFUL = "Successfully updated the calorie limit for user: ";
 
     public static final String USER_NOT_FOUND_ERROR = "This user is not registered in the system.";
     public static final String FOOD_ENTRY_NOT_FOUND_ERROR = "Food Entry not found for this id: ";

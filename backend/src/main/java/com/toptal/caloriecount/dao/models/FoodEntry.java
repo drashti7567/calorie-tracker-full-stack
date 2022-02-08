@@ -22,7 +22,7 @@ public class FoodEntry {
     private String entryId;
 
     @Column(name="eat_time")
-    private String eatTime;
+    private Timestamp eatTime;
 
     @Column(name="food_name")
     private String foodName;

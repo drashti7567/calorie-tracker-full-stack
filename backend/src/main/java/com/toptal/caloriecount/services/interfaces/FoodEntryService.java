@@ -16,5 +16,5 @@ public interface FoodEntryService {
 
     MessageResponse deleteEntry(String userId, String entryId) throws FoodEntryNotFoundException, UserNotAuthorizedException, UserIdNotFoundException;
 
-    GetFoodEntriesResponse getEntries(String userId, Map<String, String> params);
+    GetFoodEntriesResponse getEntries(String userId, Map<String, String> params) throws UserIdNotFoundException;
 }

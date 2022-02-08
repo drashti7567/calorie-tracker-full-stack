@@ -14,4 +14,5 @@ import java.util.List;
 @NoArgsConstructor
 public class GetFoodEntriesResponse extends MessageResponse {
     private List<FoodEntryFields> foodEntryList;
+    private Float calorieLimit;
 }
