@@ -1,4 +1,4 @@
-package com.toptal.calorycount.configuration;
+package com.toptal.caloriecount.configuration;
 
 import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +26,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(true)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.toptal.calorycount"))
+                .apis(RequestHandlerSelectors.basePackage("com.toptal.caloriecount"))
                 .paths(regex("/.*"))
                 .build()
                 .apiInfo(metaData())

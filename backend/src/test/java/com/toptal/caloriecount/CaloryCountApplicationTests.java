@@ -1,4 +1,4 @@
-package com.toptal.calorycount;
+package com.toptal.caloriecount;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

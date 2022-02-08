@@ -1,6 +1,6 @@
-package com.toptal.calorycount.controller;
+package com.toptal.caloriecount.controller;
 
-import com.toptal.calorycount.payloads.response.misc.MessageResponse;
+import com.toptal.caloriecount.payloads.response.misc.MessageResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
