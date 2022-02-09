@@ -11,6 +11,8 @@ public class MessageConstants {
     public static final String AUTOCOMPLETE_FOOD_NAME_SUCCESSFUL = "Successfully retrived list of food names starting with ";
     public static final String RETRIEVED_CALORIE_SUCCESSFUL = "Successfully retrived calories of food names ";
     public static final String GET_REPORTS_SUCCESSFULL = "Successfully generated reports";
+    public static final String RESET_TOKEN_SUCCESSFULL = "Successfully generated new token";
+
 
 
     public static final String USER_NOT_FOUND_ERROR = "This user is not registered in the system.";

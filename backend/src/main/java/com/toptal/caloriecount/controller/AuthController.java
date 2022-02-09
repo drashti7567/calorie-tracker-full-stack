@@ -2,10 +2,14 @@ package com.toptal.caloriecount.controller;
 
 import com.toptal.caloriecount.payloads.request.auth.LoginRequest;
 import com.toptal.caloriecount.payloads.response.auth.JwtResponse;
+import com.toptal.caloriecount.payloads.response.auth.ResetTokenResponse;
 import com.toptal.caloriecount.payloads.response.misc.MessageResponse;
 import com.toptal.caloriecount.services.interfaces.AuthService;
+import com.toptal.caloriecount.shared.constants.ReturnCodeConstants;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +34,18 @@ public class AuthController {
         }
         catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage(), false, "CC-411" ));
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage(), false, ReturnCodeConstants.UNKNOWN_ERROR ));
+        }
+    }
+
+    @GetMapping("${calorieCount.app.refreshTokenUrl}")
+    @ApiOperation(value="Refresh Token controller")
+    public ResponseEntity<?> refreshToken(@RequestHeader(value= HttpHeaders.AUTHORIZATION) String bearerToken) {
+        try {
+            ResetTokenResponse response = authService.refreshToken(bearerToken);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.ok(new MessageResponse(e.getMessage(), false, ReturnCodeConstants.UNKNOWN_ERROR));
         }
     }
 }

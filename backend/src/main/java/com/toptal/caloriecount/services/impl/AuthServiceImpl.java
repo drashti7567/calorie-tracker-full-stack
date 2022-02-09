@@ -2,8 +2,10 @@ package com.toptal.caloriecount.services.impl;
 
 import com.toptal.caloriecount.payloads.request.auth.LoginRequest;
 import com.toptal.caloriecount.payloads.response.auth.JwtResponse;
+import com.toptal.caloriecount.payloads.response.auth.ResetTokenResponse;
 import com.toptal.caloriecount.security.jwt.JwtUtils;
 import com.toptal.caloriecount.security.services.UserDetailsImpl;
+import com.toptal.caloriecount.shared.constants.MessageConstants;
 import com.toptal.caloriecount.shared.constants.ReturnCodeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,6 +49,19 @@ public class AuthServiceImpl implements AuthService {
         response.setMessageResponseVariables("User " + response.getEmail() + " authenticated successfully",
                 true, ReturnCodeConstants.SUCESS);
 
+        return response;
+    }
+
+    @Override
+    public ResetTokenResponse refreshToken(String bearerToken) throws Exception {
+        /**
+         * Main Service function to refresh the token before it expires.
+         */
+        String token = bearerToken.split(" ")[1];
+        String newToken = jwtUtils.refreshJwtToken(token);
+
+        ResetTokenResponse response = new ResetTokenResponse(newToken);
+        response.setMessageResponseVariables(MessageConstants.RESET_TOKEN_SUCCESSFULL, true, ReturnCodeConstants.SUCESS);
         return response;
     }
 }
