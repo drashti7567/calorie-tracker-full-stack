@@ -141,7 +141,10 @@ export class HomeComponent implements OnInit {
      * Function to send post request to add new entry
      */
     this.homeService.addFoodEntry(request).pipe(takeUntil(this.destroy$)).subscribe(data => {
-      if(!!data.success) this.toastService.success(data.message);
+      if(!!data.success) {
+        this.toastService.success(data.message);
+        this.getFoodEntries();
+      }
       else this.toastService.error(data.message);
     });
   }

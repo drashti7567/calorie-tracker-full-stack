@@ -11,6 +11,7 @@ import { ToggleSidebarService } from './services/toggle-sidebar.service';
 import { MaterialModule } from './modules/material.module';
 import { CalorieLimitService } from './services/calorie-limit.service';
 import { AddEntryModalComponent } from './modals/add-entry-modal/add-entry-modal.component';
+import { AutoCompleteService } from './services/autocomplete.service';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { AddEntryModalComponent } from './modals/add-entry-modal/add-entry-modal
     LoggedInAuthGuard,
     AuthGuard,
     CalorieLimitService,
+    AutoCompleteService
   ],
   exports: [
     CommonModule,

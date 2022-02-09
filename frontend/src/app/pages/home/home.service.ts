@@ -15,10 +15,6 @@ export class HomeService {
 
     private foodEntryUrl = UrlConstants.API_URL + UrlConstants.FOOD_ENTRY_URL;
 
-    private searchUrl = UrlConstants.API_URL + UrlConstants.SEARCH_URL;
-    private searchFoodUrl = this.searchUrl + UrlConstants.SEARCH_FOOD_URL;
-    private searchCaloriesUrl = this.searchUrl + UrlConstants.SEARCH_CALORIES_URL;
-
 
     public getFoodEntries(userId: string, dateFrom?, dateTo?): Observable<GetFoodEntriesResponse> {
         /**
@@ -57,23 +53,5 @@ export class HomeService {
          */
 
         return this.http.delete<BaseResponse>(`${this.foodEntryUrl}/${userId}/${entryId}`);
-    }
-
-    public searchFood(query: string): Observable<SearchProductsResponse> {
-        /**
-         * Function for autocomplete of food names
-         * @param query: search inputted by user
-         */
-
-        return this.http.get<SearchProductsResponse>(`${this.searchFoodUrl}?query=${query}`);
-    }
-
-    public getCalories(query: string): Observable<ProductWithCalorieResponse> {
-        /**
-         * Function to calories of the product selected in autocomplete
-         * @param query: food name
-         */
-
-        return this.http.get<ProductWithCalorieResponse>(`${this.searchCaloriesUrl}?query=${query}`);
     }
 }

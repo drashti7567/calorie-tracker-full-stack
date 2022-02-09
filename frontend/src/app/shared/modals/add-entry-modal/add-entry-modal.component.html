@@ -40,8 +40,9 @@
                     <div class="form-group foodName-form-group mb-2 ">
                         <div class="input-wrapper">
                             <input type="text" class="form-control rounded-0 cursor-pointer" id="foodName"
-                                aria-describedby="foodNameHelp" placeholder="Enter Food Name"
-                                formControlName="foodName">
+                                aria-describedby="foodNameHelp" placeholder="Enter Food Name" formControlName="foodName"
+                                [resultFormatter]="resultFormatter" [inputFormatter]="inputFormatter"
+                                [ngbTypeahead]="searchFood" (selectItem)="setCaloriesFromTypeahead($event)">
                             <button mat-icon-button matSuffix class="form-field-icon-button">
                                 <mat-icon>event</mat-icon>
                             </button>
@@ -78,7 +79,8 @@
                     (click)="onCancelBtnClick()">Cancel</button>
             </div>
         </div>
-
-
+    </div>
+    <div class="spinner_overlay" *ngIf="!!loading">
+        <div class="clock-loader"></div>
     </div>
 </cc-modal>
