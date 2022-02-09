@@ -1,0 +1,49 @@
+// span.mat-form-field-label-wrapper {
+//     border-bottom: 0.1rem solid $layout-color;
+// }
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: $grey-400 !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    color: $text-primary-color !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0.5em 0em !important;
+}
+
+.mat-label.ng-star-inserted {
+    color:$text-primary-color !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-label {
+    color:$text-primary-color !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+    height: 0rem !important;
+}
+
+.mat-error {
+    margin-top: -1.2rem;
+    font-size: small;
+}
+
+.mat-form-field-label {
+    color:$text-primary-color !important;
+}
+
+
+.mat-datepicker-toggle, .mat-datepicker-content .mat-calendar-next-button, .mat-datepicker-content .mat-calendar-previous-button {
+    color:$text-primary-color !important;
+}
+
+.mat-form-field {
+    width: 100% !important;
+    border-radius: 0.5rem;
+    border-color: $layout-color-ternary;
+    border-width: 1px;
+    border-style: solid;
+}

@@ -3,15 +3,27 @@
   <nav class="sidebar-menu pt-3 pb-0">
 
     <ul class="menu-items">
-      <li >
+      <li>
         <a href="#" routerLink="/home" routerLinkActive="active">
           <i class="fa fa-home"></i>
           <span>Home</span>
         </a>
       </li>
     </ul>
-     
+
   </nav>
+
+  <div class="sidebar-profile d-flex flex-column justify-content-center pt-5 pb-3">
+    <div class="picture-wrapper mb-4">
+      <div class="user-picture m-auto">
+        <img src="./assets/img/user.jpg" class="img-fluid" alt="">
+      </div>
+    </div>
+    <div class="profile-details text-center pb-4">
+      <p class="mb-0 text-uppercase name">{{currentUser.name}}</p>
+      <small class="text-uppercase role">{{currentUser.roles[0]}}</small>
+    </div>
+  </div>
 
 
   <nav class="sidebar-menu pt-1 pb-1">
@@ -21,11 +33,37 @@
     <ul class="menu-items">
       <li>
         <a href="#" [routerLink]="navigationUrls.HOME" routerLinkActive="active">
-          <i class="fas fa-sun"></i>
+          <i class="fas fa-home"></i>
           <span>Home</span>
+        </a>
+
+        <a href="#" routerLinkActive="active" (click)="toggleSidebar(); authenticationService.logout()">
+          <i class="fa fa-lock"></i>
+          <span>Log Out</span>
+          <!-- <span class="badge badge-warning rounded-0 text-dark p-1">NEW</span> -->
         </a>
       </li>
     </ul>
-     
   </nav>
+
+  <nav class="sidebar-menu pt-1 pb-1">
+    <div class="menu-header mt-3 mb-2">
+      Admin
+    </div>
+    <ul class="menu-items">
+      <li>
+        <a href="#" [routerLink]="navigationUrls.REPORTS" routerLinkActive="active">
+          <i class="fas fa-chart-line"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="#" routerLinkActive="active" [routerLink]="navigationUrls.ALL_ENTRIES">
+          <i class="fa fa-list"></i>
+          <span>All Entries</span>
+          <!-- <span class="badge badge-warning rounded-0 text-dark p-1">NEW</span> -->
+        </a>
+      </li>
+    </ul>
+  </nav>
+
 </aside>

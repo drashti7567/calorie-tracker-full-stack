@@ -20,6 +20,7 @@ import { AuthenticationService } from './shared/services/authentication.service'
 import { ModalService } from './shared/components/modal/modal.service';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
+import { LayoutComponent } from './layout/layout.component';
 
 export function appInitializerFn(ps: NgxPermissionsService,
     authenticationService: AuthenticationService) {
@@ -52,6 +53,7 @@ export function appInitializerFn(ps: NgxPermissionsService,
         NavbarComponent,
         SidebarComponent,
         FooterComponent,
+        LayoutComponent
     ],
     providers: [
     ModalService,

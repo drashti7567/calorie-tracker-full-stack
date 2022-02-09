@@ -2,7 +2,7 @@ import { ToggleSidebarService } from '../../shared/services/toggle-sidebar.servi
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'cc-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })

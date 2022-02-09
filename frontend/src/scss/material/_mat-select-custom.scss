@@ -1,0 +1,42 @@
+// @import "./variables";
+
+.mat-form-field-wrapper {
+    padding-bottom: 1.25em !important;
+}
+
+.mat-select-value {
+    color: #000000;
+}
+
+.mat-select-arrow {
+    color: $navbar-bg-color;
+}
+
+.mat-select-panel {
+    background-color: $layout-color;
+    color: $text-primary-color;
+}
+
+.mat-option {
+    color: $text-primary-color;
+}
+
+.mat-selected, .mat-active {
+    font-weight: 700;
+    background-image: linear-gradient(45deg, $indigo-a200, $indigo-900) !important;
+    background-size: 100% !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -moz-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    -moz-text-fill-color: transparent !important;
+}
+
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container {
+    z-index: 1998 !important;
+}
+
+.cdk-overlay-connected-position-bounding-box {
+    z-index: 1998 !important;
+}

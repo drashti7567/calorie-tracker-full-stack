@@ -1,0 +1,107 @@
+@import "../../../scss//variables/variables";
+
+.login-page-wrapper {
+    width: 100vw;
+    height: 100vh;
+
+    .background-image-wrapper {
+        background-image: url("/assets/img/cover2.jpg");
+        width: 100vw;
+        height: 100vh;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+
+        .login-form-wrapper {
+            width: 25vw;
+            height: 75vh;
+            margin-top: 12.5vh;
+            margin-left: auto;
+            margin-right: 10.5vw;
+            background-color: $white;
+            border-radius: 1rem;
+            box-shadow: 0 3px 8px 0 rgb(0 0 0 / 46%);
+
+            form {
+                
+                .app-name-header-wrapper {
+                    
+                    display: flex;
+                    width: 100%;
+
+                    .app-name-header {
+                        font-weight: 600;
+                        background-image: linear-gradient(45deg, $indigo-a200, $indigo-900);
+                        background-size: 100%;
+                        background-clip: text;
+                        -webkit-background-clip: text;
+                        -moz-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        -moz-text-fill-color: transparent;
+                        margin: auto;
+                        margin-top: 6vh;
+                    }
+                }
+
+                .form-group {
+                    width: 85%;
+                    margin: auto;
+                }
+
+                .email-form-group {
+                    margin-top: 5vh;
+                }
+
+                .login-button-form-group {
+                    button {
+                        width: 100%;
+                        border-radius: 0.5rem;
+                        background: linear-gradient(45deg, $indigo-a200, $indigo-900);
+                        color: $white;
+                        border-color: #FFFFFF;
+                        height: 3rem;
+                    }
+
+                    button:disabled {
+                        cursor: not-allowed;
+                        opacity: 0.5;
+                    }
+                }
+
+                .forgot-password-wrapper {
+                    display: flex;
+
+                    a {
+                        margin: auto;
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 1025px) {
+    .login-page-wrapper {
+        width: 100vw;
+        height: 100vh;
+    
+        .background-image-wrapper {
+            background-color: $blue-a50;
+            background-image: none;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+    
+            .login-form-wrapper {
+                width: 85vw;
+                margin: auto;
+                height: 85vh;
+                margin-top: 7.5vh;
+            }
+        }
+    }
+}
+

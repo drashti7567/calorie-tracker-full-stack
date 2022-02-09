@@ -1,0 +1,23 @@
+.mat-tab-label-content {
+    color: $navbar-bg-color;
+}
+
+.mat-tab-header-pagination-chevron {
+    border-color:$navbar-bg-color;
+}
+
+.mat-elevation-z4 {
+    box-shadow: none;
+}
+
+.mat-tab-body-content {
+    overflow-x: hidden !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color:$navbar-bg-color;
+}
+
+.mat-slide-toggle-bar {
+    background-color: rgba(176,190,197,.54);
+}

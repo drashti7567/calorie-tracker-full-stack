@@ -1,0 +1,42 @@
+.form-group {
+    .input-wrapper {
+        display: flex;
+        border: 2px solid $layout-color-ternary;
+        border-radius: 0.5rem;
+        height: 4rem;
+        background-color: $white;
+
+
+        &:hover {
+            box-shadow: 0 0 0 0.1rem rgb(0 123 255 / 25%);
+        }
+
+        input, select {
+            border: none;
+            margin: auto;
+
+            &:focus {
+                box-shadow: none
+            }
+        }
+
+        .form-field-icon-button {
+            float: right;
+            margin: auto;
+            mat-icon {
+                color: $blue-400;
+            }
+        }
+
+        .form-control {
+            background-color: transparent !important;
+
+            &:disabled {
+                cursor: not-allowed;
+            }
+        }
+    }
+    .validation-error-message {
+        color: $red-700 !important;
+    }
+}
