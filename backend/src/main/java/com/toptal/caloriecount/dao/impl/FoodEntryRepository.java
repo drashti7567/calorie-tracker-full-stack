@@ -32,4 +32,6 @@ public interface FoodEntryRepository extends JpaRepository<FoodEntry, String> {
     List<FoodEntry> getAllFoodEntries(@Param("dateFrom") Timestamp dateFrom, @Param("dateTo") Timestamp dateTo);
 
     List<FoodEntry> findAllByUserOrderByEatTimeDesc(Users user);
+
+    List<FoodEntry> findAllByOrderByEatTimeDesc();
 }

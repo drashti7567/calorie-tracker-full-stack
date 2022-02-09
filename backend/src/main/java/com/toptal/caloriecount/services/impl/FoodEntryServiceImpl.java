@@ -178,7 +178,7 @@ public class FoodEntryServiceImpl implements FoodEntryService {
          * Admin Only
          */
 
-        List<FoodEntry> foodEntryList = this.foodEntryRepository.findAll();
+        List<FoodEntry> foodEntryList = this.foodEntryRepository.findAllByOrderByEatTimeDesc();
         List<FoodEntryFields> foodEntryFieldsList = foodEntryList.stream()
                 .map(FoodEntryMapper::convertEntityToEntryFields).collect(Collectors.toList());
         GetFoodEntriesResponse response =  this.generateGetFoodEntriesResponse(foodEntryFieldsList, null);
