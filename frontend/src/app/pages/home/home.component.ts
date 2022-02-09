@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbCalendar, NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from 'app/shared/components/modal/modal.service';
+import { FoodEntryRequest } from 'app/shared/models/request/foodEntry/food-entry-request.model';
 import { FoodEntryFields } from 'app/shared/models/response/foodEntry/get-food-entries-response.model';
 import { GetReportsResponse } from 'app/shared/models/response/reports/get-reports-response.model';
 import moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { take } from 'rxjs-compat/operator/take';
 import { takeUntil } from 'rxjs/operators';
 import { HomeService } from './home.service';
 
@@ -16,7 +20,8 @@ import { HomeService } from './home.service';
 export class HomeComponent implements OnInit {
 
   constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter,
-    private homeService: HomeService) { }
+    private homeService: HomeService, private modalService: ModalService,
+    private toastService: ToastrService) { }
 
   public currentUser;
 
@@ -119,5 +124,25 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
     this.getFoodEntries();
+  }
+
+  // Public functions called from UI start----------------------------------------------------------
+
+  public openAddEntryModal(): void {
+    /**
+     * FUnction to open the iorder summary modal.
+     */
+    this.modalService.open("add-entry-modal");
+
+  }
+
+  public addNewFoodEntry(request: FoodEntryRequest): void {
+    /**
+     * Function to send post request to add new entry
+     */
+    this.homeService.addFoodEntry(request).pipe(takeUntil(this.destroy$)).subscribe(data => {
+      if(!!data.success) this.toastService.success(data.message);
+      else this.toastService.error(data.message);
+    });
   }
 }

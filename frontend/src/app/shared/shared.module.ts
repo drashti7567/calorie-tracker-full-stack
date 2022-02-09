@@ -10,6 +10,7 @@ import { LoggedInAuthGuard } from './services/logged-in-auth-guard.service';
 import { ToggleSidebarService } from './services/toggle-sidebar.service';
 import { MaterialModule } from './modules/material.module';
 import { CalorieLimitService } from './services/calorie-limit.service';
+import { AddEntryModalComponent } from './modals/add-entry-modal/add-entry-modal.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { CalorieLimitService } from './services/calorie-limit.service';
     MaterialModule
   ],
   declarations: [
+    AddEntryModalComponent
   ],
   providers: [
     ToggleSidebarService,
@@ -26,11 +28,14 @@ import { CalorieLimitService } from './services/calorie-limit.service';
     AuthenticationService,
     LoggedInAuthGuard,
     AuthGuard,
-    CalorieLimitService
+    CalorieLimitService,
   ],
   exports: [
+    CommonModule,
     ChartsModule,
-    MaterialModule
+    MaterialModule,
+    ModalModule,
+    AddEntryModalComponent
   ]
 })
 export class SharedModule { }

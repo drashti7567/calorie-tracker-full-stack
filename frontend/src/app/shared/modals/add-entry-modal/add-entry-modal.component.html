@@ -1,0 +1,86 @@
+<cc-modal id="add-entry-modal" [closeOnBgClick]="false">
+    <div class="card-title mb-1 pt-2 pl-3 d-flex">
+        <h5>Add Food Entry</h5>
+    </div>
+    <div class="card-body pt-2 pb-2 overflow-auto">
+
+        <div class="">
+
+            <form name="addEntryForm" [formGroup]="addEntryForm">
+                <div class="row">
+
+                    <div class="form-group currentDate-form-group mb-2 col-sm-6">
+                        <div class="input-wrapper">
+                            <input type="text" class="form-control rounded-0 cursor-pointer" id="entryDate"
+                                aria-describedby="entryDateHelp" placeholder="Enter description"
+                                formControlName="entryDate" disabled>
+                            <button mat-icon-button matSuffix class="form-field-icon-button">
+                                <mat-icon>event</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group eating-time-form-group mb-2 col-sm-6">
+                        <div class="input-wrapper">
+                            <input type="text" class="form-control rounded-0 cursor-pointer" id="eatingTime"
+                                aria-describedby="eatingTimeHelp" placeholder="Enter eating time"
+                                formControlName="eatingTime">
+
+                            <button mat-icon-button matSuffix class="form-field-icon-button">
+                                <mat-icon>flag</mat-icon>
+                            </button>
+                        </div>
+                        <small id="eatingTimeHelp" class="form-text validation-error-message"
+                            *ngIf="addEntryForm.get('eatingTime').dirty && addEntryForm.get('eatingTime').hasError('required')">
+                            Eating Time is <strong>required</strong>
+                        </small>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group foodName-form-group mb-2 col-sm-6">
+                        <div class="input-wrapper">
+                            <input type="text" class="form-control rounded-0 cursor-pointer" id="foodName"
+                                aria-describedby="foodNameHelp" placeholder="Enter Food Name"
+                                formControlName="foodName">
+                            <button mat-icon-button matSuffix class="form-field-icon-button">
+                                <mat-icon>event</mat-icon>
+                            </button>
+                        </div>
+                        <small id="foodNameHelp" class="form-text validation-error-message"
+                            *ngIf="addEntryForm.get('foodName').dirty && addEntryForm.get('foodName').hasError('required')">
+                            Eating Time is <strong>required</strong>
+                        </small>
+                    </div>
+
+                    <div class="form-group calories-form-group mb-2 col-sm-6">
+                        <div class="input-wrapper">
+                            <input type="number" class="form-control rounded-0 cursor-pointer" id="calories"
+                                aria-describedby="caloriesHelp" placeholder="Enter Calories" formControlName="calories">
+
+                            <button mat-icon-button matSuffix class="form-field-icon-button">
+                                <mat-icon>flag</mat-icon>
+                            </button>
+                        </div>
+                        <small id="eatingTimeHelp" class="form-text validation-error-message"
+                            *ngIf="addEntryForm.get('calories').dirty && addEntryForm.get('calories').hasError('required')">
+                            Calories is <strong>required</strong>
+                        </small>
+                    </div>
+
+                </div>
+
+            </form>
+
+            <div class="d-flex">
+                <button class="btn btn-primary mb-2 rounded-1 ml-auto" [disabled]="disableSaveButton"
+                    (click)="onSaveButtonClick()">Save</button>
+                <button class="btn btn-outline-lightning mb-2 ml-2 rounded-1" (click)="onCancelBtnClick()">Cancel</button>
+            </div>
+        </div>
+
+
+    </div>
+</cc-modal>

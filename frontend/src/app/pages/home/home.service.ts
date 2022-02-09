@@ -37,7 +37,7 @@ export class HomeService {
          * @param request: New Entry request object
          */
 
-        return this.http.post<BaseResponse>(`${this.foodEntryUrl}`, request);
+        return this.http.post<BaseResponse>(`${this.foodEntryUrl}/`, request);
     }
 
     public updateFoodEntry(entryId: string, request: FoodEntryRequest): Observable<BaseResponse> {

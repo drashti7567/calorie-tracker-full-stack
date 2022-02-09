@@ -45,7 +45,7 @@
                 </div>
             </form>
         </div>
-        <div id="new-order-btn" class="new-order-btn d-flex mt-4 cursor-pointer">
+        <div id="new-order-btn" class="new-order-btn d-flex mt-4 cursor-pointer" (click)="openAddEntryModal()">
             <h4 class="text-success ml-3">Add Entry</h4>
             <mat-icon [inline]=true class="ml-2 mt-1 text-success">add</mat-icon>
         </div>
@@ -100,3 +100,5 @@
     </ngb-accordion>
 
 </div>
+
+<cc-add-entry-modal (onMainButtonClick)="addNewFoodEntry($event)"></cc-add-entry-modal>
