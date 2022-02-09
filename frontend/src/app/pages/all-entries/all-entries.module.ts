@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from 'app/shared/shared.module';
 import { AllEntriesComponent } from './all-entries.component';
 import { AllEntriesRoutingModule } from './all-entries.routing';
+import { AllEntriesService } from './all-entries.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { AllEntriesRoutingModule } from './all-entries.routing';
     AllEntriesComponent
   ],
   providers: [
+    AllEntriesService
   ],
   exports: [
   ]

@@ -1,4 +1,62 @@
+@import "../../../scss/variables//variables";
+
 .all-entries-page-wrapper {
     min-height: calc(100vh - 80px - 90px);
-    margin-top: 60px;
+    margin-top: 30px;
+
+    .form-group.hidden {
+        width: 0;
+        margin: 0;
+        border: none;
+        padding: 0;
+    }
+
+    .badge {
+        height: 1.15rem;
+        font-size: 0.7rem;
+        top: 0.3rem;
+    }
+
+    .custom-day {
+        text-align: center;
+        padding: 0.185rem 0.25rem;
+        display: inline-block;
+        height: 2rem;
+        width: 2rem;
+    }
+    .custom-day.focused {
+        background-color: #e6e6e6;
+    }
+    .custom-day.range,
+    .custom-day:hover {
+        background-color: rgb(2, 117, 216);
+        color: white;
+    }
+    .custom-day.faded {
+        background-color: rgba(2, 117, 216, 0.5);
+    }
+
+    ::ng-deep {
+        .card {
+            box-shadow: none;
+            border: none;
+            background-color: transparent;
+            .card-header {
+                padding: 0rem !important;
+                border-bottom: none;
+                background-color: transparent !important;
+            }
+        }
+
+        .btn-link {
+            padding: 0rem !important;
+            width: 100%;
+            color: lighten($navbar-bg-color, 20%);
+            &:focus,
+            &:hover {
+                box-shadow: none !important;
+                text-decoration: none !important;
+            }
+        }
+    }
 }

@@ -53,7 +53,8 @@ export class HomeComponent implements OnInit {
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
+    } else if (this.fromDate && !this.toDate && date &&
+      (date.after(this.fromDate) || date.equals(this.fromDate))) {
       this.toDate = date;
       this.getFoodEntries();
     } else {
@@ -91,8 +92,8 @@ export class HomeComponent implements OnInit {
     this.dateWiseMap = {};
     this.totalCalorieDayWiseMap = {};
     this.foodEntriesList.forEach(entry => {
-      const entryDate = entry.eatingTime.substring(0,10);
-      if(!(entryDate in this.dateWiseMap)) {
+      const entryDate = entry.eatingTime.substring(0, 10);
+      if (!(entryDate in this.dateWiseMap)) {
         this.dateWiseMap[entryDate] = [];
         this.totalCalorieDayWiseMap[entryDate] = 0;
       }
@@ -105,10 +106,10 @@ export class HomeComponent implements OnInit {
     /**
      * Function that calls the backend service to get the food entries made by user.
      */
-    const fromDate = !!this.fromDate ? `${String(this.fromDate.year).padStart(4, '0')}-${String(this.fromDate.month).padStart(2,'0')}-${String(this.fromDate.day).padStart(2, '0')}` : null;
-    const toDate = !!this.toDate ?  `${String(this.toDate.year).padStart(4, '0')}-${String(this.toDate.month).padStart(2,'0')}-${String(this.toDate.day).padStart(2, '0')}` : null;
+    const fromDate = !!this.fromDate ? `${String(this.fromDate.year).padStart(4, '0')}-${String(this.fromDate.month).padStart(2, '0')}-${String(this.fromDate.day).padStart(2, '0')}` : null;
+    const toDate = !!this.toDate ? `${String(this.toDate.year).padStart(4, '0')}-${String(this.toDate.month).padStart(2, '0')}-${String(this.toDate.day).padStart(2, '0')}` : null;
     this.homeService.getFoodEntries(this.currentUser.id, fromDate, toDate).pipe(takeUntil(this.destroy$)).subscribe(data => {
-      if(!!data.success) {
+      if (!!data.success) {
         this.foodEntriesList = data.foodEntryList;
         this.userCalorieLimit = !!data.calorieLimit ? data.calorieLimit : 2100;
         console.log(this.foodEntriesList, this.userCalorieLimit);
@@ -141,7 +142,7 @@ export class HomeComponent implements OnInit {
      * Function to send post request to add new entry
      */
     this.homeService.addFoodEntry(request).pipe(takeUntil(this.destroy$)).subscribe(data => {
-      if(!!data.success) {
+      if (!!data.success) {
         this.toastService.success(data.message);
         this.getFoodEntries();
       }

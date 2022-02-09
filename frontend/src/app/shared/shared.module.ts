@@ -12,6 +12,7 @@ import { MaterialModule } from './modules/material.module';
 import { CalorieLimitService } from './services/calorie-limit.service';
 import { AddEntryModalComponent } from './modals/add-entry-modal/add-entry-modal.component';
 import { AutoCompleteService } from './services/autocomplete.service';
+import { DeleteEntryModalComponent } from './modals/delete-entry-modal/delete-entry-modal.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { AutoCompleteService } from './services/autocomplete.service';
     MaterialModule
   ],
   declarations: [
-    AddEntryModalComponent
+    AddEntryModalComponent,
+    DeleteEntryModalComponent
   ],
   providers: [
     ToggleSidebarService,
@@ -37,7 +39,8 @@ import { AutoCompleteService } from './services/autocomplete.service';
     ChartsModule,
     MaterialModule,
     ModalModule,
-    AddEntryModalComponent
+    AddEntryModalComponent,
+    DeleteEntryModalComponent
   ]
 })
 export class SharedModule { }
