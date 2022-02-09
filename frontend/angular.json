@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "caloryCount": {
+    "calorieCount": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -73,14 +73,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "caloryCount:build"
+            "browserTarget": "calorieCount:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "caloryCount:build:production"
+              "browserTarget": "calorieCount:build:production"
             },
             "development": {
-              "browserTarget": "caloryCount:build:development",
+              "browserTarget": "calorieCount:build:development",
               "optimization": false,
               "vendorChunk": true,
               "sourceMap": true
@@ -91,7 +91,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "caloryCount:build"
+            "browserTarget": "calorieCount:build"
           }
         },
         "test": {
@@ -124,7 +124,7 @@
         }
       }
     },
-    "caloryCount-e2e": {
+    "calorieCount-e2e": {
       "root": "",
       "sourceRoot": "",
       "projectType": "application",
@@ -133,7 +133,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "caloryCount:serve"
+            "devServerTarget": "calorieCount:serve"
           }
         },
         "lint": {
@@ -148,7 +148,7 @@
       }
     }
   },
-  "defaultProject": "caloryCount",
+  "defaultProject": "calorieCount",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

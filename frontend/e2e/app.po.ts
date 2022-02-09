@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class CaloryPalPage {
+export class CaloriePalPage {
   navigateTo() {
     return browser.get('/');
   }
