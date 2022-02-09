@@ -24,6 +24,7 @@ export class SidebarComponent implements OnInit {
 
     ngOnInit() {
         this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
     }
 
     toggleSidebar() {

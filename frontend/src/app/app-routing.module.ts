@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { NgxPermissionsGuard } from 'ngx-permissions';
 import { LayoutComponent } from './layout/layout.component';
 import { NavigationConstants } from './shared/constants/navigation-constants';
 import { AuthGuard } from './shared/services/auth-guard.service';
@@ -19,12 +20,22 @@ const routes: Routes = [
       {
         path: NavigationConstants.ALL_ENTRIES,
         loadChildren: () => import('./pages/all-entries/all-entries.module').then(m => m.AllEntriesModule),
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard, NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        }
       },
       {
         path: NavigationConstants.REPORTS,
         loadChildren: () => import('./pages/reports/reports.module').then(m => m.ReportsModule),
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard, NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: 'ADMIN'
+          }
+        }
       },
     ]
   },
