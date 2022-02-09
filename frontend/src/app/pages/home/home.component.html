@@ -53,9 +53,9 @@
 
 
     <ngb-accordion #foodEntryAccordion="ngbAccordion" [animation]="true" class="order-product-list-accordion mt-4"
-        activeIds="{{defaultActiveId}}">
-        <ng-container *ngFor="let key of object.keys(dateWiseMap || {})">
-            <ngb-panel>
+        activeIds="index0">
+        <ng-container *ngFor="let key of object.keys(dateWiseMap || {}); let i = index">
+            <ngb-panel id={{index+i}}>
                 <ng-template ngbPanelTitle>
                     <div class="d-flex">
                         <h4 class="mt-3 ml-3">{{key}}</h4>

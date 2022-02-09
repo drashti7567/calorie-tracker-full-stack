@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
 
   public dateWiseMap;
   public totalCalorieDayWiseMap;
-  public defaultActiveId;
+  public index = "index";
   public object = Object;
 
 
