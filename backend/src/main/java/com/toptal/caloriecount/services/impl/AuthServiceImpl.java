@@ -1,8 +1,13 @@
 package com.toptal.caloriecount.services.impl;
 
+import com.toptal.caloriecount.dao.impl.UsersRepository;
+import com.toptal.caloriecount.dao.models.Users;
+import com.toptal.caloriecount.mapper.AuthMapper;
 import com.toptal.caloriecount.payloads.request.auth.LoginRequest;
+import com.toptal.caloriecount.payloads.response.auth.GetUsersResponse;
 import com.toptal.caloriecount.payloads.response.auth.JwtResponse;
 import com.toptal.caloriecount.payloads.response.auth.ResetTokenResponse;
+import com.toptal.caloriecount.payloads.response.auth.UserFields;
 import com.toptal.caloriecount.security.jwt.JwtUtils;
 import com.toptal.caloriecount.security.services.UserDetailsImpl;
 import com.toptal.caloriecount.shared.constants.MessageConstants;
@@ -26,6 +31,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    @Autowired
+    UsersRepository usersRepository;
 
     @Override
     public JwtResponse authenticateUser(LoginRequest loginRequest) {
@@ -62,6 +70,20 @@ public class AuthServiceImpl implements AuthService {
 
         ResetTokenResponse response = new ResetTokenResponse(newToken);
         response.setMessageResponseVariables(MessageConstants.RESET_TOKEN_SUCCESSFULL, true, ReturnCodeConstants.SUCESS);
+        return response;
+    }
+
+    @Override
+    public GetUsersResponse getUsers() {
+        /**
+         * Main Service function to return list of users.
+         */
+        List<Users> usersList = this.usersRepository.findAll();
+        List<UserFields> userFieldsList = usersList.stream()
+                .map(AuthMapper::convertEntityToResponse).collect(Collectors.toList());
+        GetUsersResponse response = new GetUsersResponse(userFieldsList);
+        response.setMessageResponseVariables(MessageConstants.GET_USERS_LIST_SUCCESSFUL,
+                true, ReturnCodeConstants.SUCESS);
         return response;
     }
 }
