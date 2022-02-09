@@ -19,11 +19,14 @@ export class AddEntryModalComponent implements OnInit {
 
     @Output("onMainButtonClick") onMainButtonClick = new EventEmitter();
 
+    @Input("isComingFromAdmin") isComingFromAdmin: boolean = false;
+
     constructor(private modalService: ModalService, private formBuilder: FormBuilder,
         private calendar: NgbCalendar, private autocompleteService: AutoCompleteService) { }
 
     private currentUser;
     public addEntryForm;
+    public usersList = [];
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
     public loading = false;
@@ -53,6 +56,18 @@ export class AddEntryModalComponent implements OnInit {
 
     // ---------------------------------------------------------------------------------------------
 
+    private getUsersList(): void {
+        /**
+         * Function to get List of users for user select
+         */
+        if (!this.isComingFromAdmin) return;
+        this.autocompleteService.getUsers().pipe(takeUntil(this.destroy$)).subscribe(data => {
+            if (!!data.success) {
+                this.usersList = data.usersList;
+            }
+        });
+    }
+
     private subscribeToFormValueChanges(): void {
         /**
          * FUnction that disbaled the save button whenever there is a change in inputs 
@@ -62,7 +77,8 @@ export class AddEntryModalComponent implements OnInit {
             this.disableSaveButton =
                 !this.addEntryForm.get("foodName").valid || !this.addEntryForm.get("calories").valid ||
                 !this.addEntryForm.get("eatingTime").valid || !this.addEntryForm.get("eatingDate").valid ||
-                !this.addEntryForm.controls['eatingDate'].value.day ;
+                !this.addEntryForm.controls['eatingDate'].value.day || 
+                (!!this.isComingFromAdmin && !this.addEntryForm.get("username").valid);
         });
     }
 
@@ -78,6 +94,8 @@ export class AddEntryModalComponent implements OnInit {
             entryDate: [{ value: today, disabled: true }, []],
             eatingDate: ["", [Validators.required]],
             eatingTime: ["", [Validators.required]],
+            userId: ["", []],
+            username: ["", [Validators.required]],
             foodName: ["", [Validators.required]],
             calories: ["", [Validators.required, Validators.min(0)]]
         });
@@ -87,6 +105,7 @@ export class AddEntryModalComponent implements OnInit {
         this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
         this.initializeForm();
         this.subscribeToFormValueChanges();
+        this.getUsersList();
     }
 
     // Public functions called from UI starts ------------------------------------------------------
@@ -132,7 +151,7 @@ export class AddEntryModalComponent implements OnInit {
             this.addEntryForm.controls["foodName"].value;
 
         const request: FoodEntryRequest = {
-            userId: this.currentUser.id,
+            userId: !!this.isComingFromAdmin ? this.addEntryForm.controls["username"].value : this.currentUser.id,
             foodName: foodName,
             eatingTime: eatingTime,
             calories: this.addEntryForm.controls["calories"].value,

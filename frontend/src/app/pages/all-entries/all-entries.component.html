@@ -1,6 +1,6 @@
 <div class="all-entries-page-wrapper">
     <div class="d-flex">
-        <h4 class="mt-4 text-muted  flex-fill"> Home </h4>
+        <h4 class="mt-4 text-muted  flex-fill"> All Entries </h4>
         <div class="mt-4 date-range-wrapper">
             <form class="form-inline">
                 <div class="form-group hidden">
@@ -111,3 +111,4 @@
 </div>
 
 <cc-delete-entry-modal [entry]="selectedEntry" (onMainButtonClick)="deleteFoodEntry($event)"></cc-delete-entry-modal>
+<cc-add-entry-modal [isComingFromAdmin]="true" (onMainButtonClick)="addNewFoodEntry($event)"></cc-add-entry-modal>

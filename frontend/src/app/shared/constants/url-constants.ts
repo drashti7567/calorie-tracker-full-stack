@@ -4,6 +4,7 @@ export class UrlConstants {
     public static AUTH_URL = "/auth";
     public static SIGN_IN_URL = "/sign-in";
     public static REFRESH_TOKEN_URL = "/refresh-token";
+    public static USERS_URL = "/users";
 
     public static REPORTS_URL = "/reports";
 
