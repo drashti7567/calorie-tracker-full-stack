@@ -9,7 +9,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSelectModule } from "@angular/material/select";
 import {
     NgbAccordionModule, NgbDatepickerModule, NgbDropdownModule,
-    NgbNavModule, NgbTypeaheadModule
+    NgbNavModule, NgbTimepickerModule, NgbTypeaheadModule
 } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -23,6 +23,7 @@ import {
         NgbAccordionModule,
         NgbDropdownModule,
         NgbDatepickerModule,
+        NgbTimepickerModule,
         MatSelectModule,
         // MatTabsModule,
         // MatInputModule,
@@ -58,6 +59,7 @@ import {
         NgbAccordionModule,
         NgbDropdownModule,
         NgbDatepickerModule,
+        NgbTimepickerModule,
         MatSelectModule,
         // MatTabsModule,
         // MatInputModule,

@@ -4,32 +4,29 @@
     </div>
     <div class="card-body pt-2 pb-2 overflow-auto">
 
-        <div class="">
+        <div class="mt-3">
 
-            <form name="addEntryForm" [formGroup]="addEntryForm">
-                <div class="row">
+            <form name="addEntryForm" [formGroup]="addEntryForm" class="d-flex">
+                <div class="row flex-column col-sm-6">
 
-                    <div class="form-group currentDate-form-group mb-2 col-sm-6">
-                        <div class="input-wrapper">
-                            <input type="text" class="form-control rounded-0 cursor-pointer" id="entryDate"
-                                aria-describedby="entryDateHelp" placeholder="Enter description"
-                                formControlName="entryDate" disabled>
-                            <button mat-icon-button matSuffix class="form-field-icon-button">
-                                <mat-icon>event</mat-icon>
-                            </button>
-                        </div>
+                    <div class="text-muted">Select Date Time:</div>
+
+                    <div class="form-group eating-date-form-group mb-2">
+                        <ngb-datepicker #dp (navigate)="addEntryForm.get('eatingDate').value = $event.next"
+                            formControlName="eatingDate" [maxDate]="maxDate"></ngb-datepicker>
+
+                        <small id="eatingDateHelp" class="form-text validation-error-message"
+                            *ngIf="addEntryForm.get('eatingDate').dirty && addEntryForm.get('eatingDate').hasError('required')">
+                            Eating Time is <strong>required</strong>
+                        </small>
                     </div>
 
-                    <div class="form-group eating-time-form-group mb-2 col-sm-6">
-                        <div class="input-wrapper">
-                            <input type="text" class="form-control rounded-0 cursor-pointer" id="eatingTime"
+                    <div class="form-group eating-time-form-group mb-0 justify-content-center d-flex flex-column">
+                        <ngb-timepicker formControlName="eatingTime"></ngb-timepicker>
+                        <!-- <input type="text" class="form-control rounded-0 cursor-pointer" id="eatingTime"
                                 aria-describedby="eatingTimeHelp" placeholder="Enter eating time"
-                                formControlName="eatingTime">
+                                > -->
 
-                            <button mat-icon-button matSuffix class="form-field-icon-button">
-                                <mat-icon>flag</mat-icon>
-                            </button>
-                        </div>
                         <small id="eatingTimeHelp" class="form-text validation-error-message"
                             *ngIf="addEntryForm.get('eatingTime').dirty && addEntryForm.get('eatingTime').hasError('required')">
                             Eating Time is <strong>required</strong>
@@ -38,9 +35,9 @@
 
                 </div>
 
-                <div class="row">
+                <div class="row flex-column flex-wrap col-sm-6 ml-2 ">
 
-                    <div class="form-group foodName-form-group mb-2 col-sm-6">
+                    <div class="form-group foodName-form-group mb-2 ">
                         <div class="input-wrapper">
                             <input type="text" class="form-control rounded-0 cursor-pointer" id="foodName"
                                 aria-describedby="foodNameHelp" placeholder="Enter Food Name"
@@ -51,11 +48,11 @@
                         </div>
                         <small id="foodNameHelp" class="form-text validation-error-message"
                             *ngIf="addEntryForm.get('foodName').dirty && addEntryForm.get('foodName').hasError('required')">
-                            Eating Time is <strong>required</strong>
+                            Food Name is <strong>required</strong>
                         </small>
                     </div>
 
-                    <div class="form-group calories-form-group mb-2 col-sm-6">
+                    <div class="form-group calories-form-group mb-2">
                         <div class="input-wrapper">
                             <input type="number" class="form-control rounded-0 cursor-pointer" id="calories"
                                 aria-describedby="caloriesHelp" placeholder="Enter Calories" formControlName="calories">
@@ -77,7 +74,8 @@
             <div class="d-flex">
                 <button class="btn btn-primary mb-2 rounded-1 ml-auto" [disabled]="disableSaveButton"
                     (click)="onSaveButtonClick()">Save</button>
-                <button class="btn btn-outline-lightning mb-2 ml-2 rounded-1" (click)="onCancelBtnClick()">Cancel</button>
+                <button class="btn btn-outline-lightning mb-2 ml-2 rounded-1"
+                    (click)="onCancelBtnClick()">Cancel</button>
             </div>
         </div>
 

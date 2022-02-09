@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { FoodEntryRequest } from 'app/shared/models/request/foodEntry/food-entry-request.model';
-import { FoodEntryFields } from 'app/shared/models/response/foodEntry/get-food-entries-response.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -13,14 +13,18 @@ import { ModalService } from '../../components/modal/modal.service';
     styleUrls: ['./add-entry-modal.component.scss']
 })
 export class AddEntryModalComponent implements OnInit {
-    
+
     @Output("onMainButtonClick") onMainButtonClick = new EventEmitter();
 
-    constructor(private modalService: ModalService, private formBuilder: FormBuilder) {}
+    constructor(private modalService: ModalService, private formBuilder: FormBuilder,
+        private calendar: NgbCalendar) { }
 
     private currentUser;
     public addEntryForm;
     private destroy$: Subject<boolean> = new Subject<boolean>();
+
+    public toDate: NgbDate = this.calendar.getToday();
+    public maxDate = { year: this.toDate.year, month: this.toDate.month, day: this.toDate.day }
 
     public disableSaveButton = true;
 
@@ -41,11 +45,12 @@ export class AddEntryModalComponent implements OnInit {
          * Function to initialize ann entry reactive form
          */
 
-         const currentDate = new Date();
-         const today = `${currentDate.getDate()}-${(currentDate.getMonth() + 1)}-${currentDate.getFullYear()}`
+        const currentDate = new Date();
+        const today = `${currentDate.getDate()}-${(currentDate.getMonth() + 1)}-${currentDate.getFullYear()}`
 
         this.addEntryForm = this.formBuilder.group({
-            entryDate: [{value: today, disabled: true}, []],
+            entryDate: [{ value: today, disabled: true }, []],
+            eatingDate: ["", [Validators.required]],
             eatingTime: ["", [Validators.required]],
             foodName: ["", [Validators.required]],
             calories: ["", [Validators.required, Validators.min(0)]]
@@ -72,10 +77,18 @@ export class AddEntryModalComponent implements OnInit {
         /**
          * Function to emit maon button click
          */
+
+        const eatingTime = `${this.addEntryForm.controls['eatingDate'].value.year}-` +
+            `${this.addEntryForm.controls['eatingDate'].value.month}-` +
+            `${this.addEntryForm.controls['eatingDate'].value.day} ` + 
+            `${this.addEntryForm.controls['eatingTime'].value.hour}:` +
+            `${this.addEntryForm.controls['eatingTime'].value.minute}:` +
+            `${this.addEntryForm.controls['eatingTime'].value.second}`
+
         const request: FoodEntryRequest = {
             userId: this.currentUser.id,
             foodName: this.addEntryForm.controls["foodName"].value,
-            eatingTime: this.addEntryForm.controls["eatingTime"].value,
+            eatingTime: eatingTime,
             calories: this.addEntryForm.controls["calories"].value,
         }
         this.modalService.closeAll();
