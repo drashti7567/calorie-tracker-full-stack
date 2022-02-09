@@ -124,7 +124,7 @@ public class FoodEntryServiceImpl implements FoodEntryService {
          * Function to get list of food entries based on date to and date from date conditions
          */
 
-        if(params == null) return this.foodEntryRepository.findAllByUserOrderByEatTime(user);
+        if(params == null) return this.foodEntryRepository.findAllByUserOrderByEatTimeDesc(user);
 
         Timestamp dateFrom, dateTo;
 
@@ -147,7 +147,7 @@ public class FoodEntryServiceImpl implements FoodEntryService {
             return this.foodEntryRepository.getFoodEntries(dateFrom, dateTo, user);
         }
 
-        return this.foodEntryRepository.findAllByUserOrderByEatTime(user);
+        return this.foodEntryRepository.findAllByUserOrderByEatTimeDesc(user);
     }
 
     @Override

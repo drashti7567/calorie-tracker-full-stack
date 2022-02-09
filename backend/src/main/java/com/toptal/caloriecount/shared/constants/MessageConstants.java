@@ -12,7 +12,7 @@ public class MessageConstants {
     public static final String RETRIEVED_CALORIE_SUCCESSFUL = "Successfully retrived calories of food names ";
     public static final String GET_REPORTS_SUCCESSFULL = "Successfully generated reports";
     public static final String RESET_TOKEN_SUCCESSFULL = "Successfully generated new token";
-
+    public static final String GET_CALORIE_LIMIT_SUCCESSFUL = "Successfully retrieved calorie limit for ";
 
 
     public static final String USER_NOT_FOUND_ERROR = "This user is not registered in the system.";

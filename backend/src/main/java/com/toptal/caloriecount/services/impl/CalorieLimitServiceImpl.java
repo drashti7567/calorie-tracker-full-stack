@@ -6,8 +6,10 @@ import com.toptal.caloriecount.dao.models.CalorieLimit;
 import com.toptal.caloriecount.dao.models.Users;
 import com.toptal.caloriecount.exceptions.UserIdNotFoundException;
 import com.toptal.caloriecount.payloads.request.calorieLimit.UpdateCalorieLimitRequest;
+import com.toptal.caloriecount.payloads.response.calorieLimit.GetCalorieLimitResponse;
 import com.toptal.caloriecount.payloads.response.misc.MessageResponse;
 import com.toptal.caloriecount.services.interfaces.CalorieLimitService;
+import com.toptal.caloriecount.shared.constants.CalorieIntakeConstants;
 import com.toptal.caloriecount.shared.constants.MessageConstants;
 import com.toptal.caloriecount.shared.constants.ReturnCodeConstants;
 import com.toptal.caloriecount.shared.utils.CommonUtils;
@@ -49,5 +51,20 @@ public class CalorieLimitServiceImpl implements CalorieLimitService {
         }
         return new MessageResponse(MessageConstants.UPDATE_CALORIE_LIMIT_SUCCESSFUL + userId,
                 true, ReturnCodeConstants.SUCESS);
+    }
+
+    @Override
+    public GetCalorieLimitResponse getCalorieLimit(String userId) throws UserIdNotFoundException {
+        /**
+         * Main Service function to get the calorie limit of an user.
+         */
+        Users user = CommonUtils.getUserFromUserId(userId, this.usersRepository);
+        Optional<CalorieLimit> optionalCalorieLimit = this.calorieLimitRepository.findById(userId);
+        Float calorieLimit = optionalCalorieLimit.isPresent() ?
+                optionalCalorieLimit.get().getBasicLimit() : CalorieIntakeConstants.BASIC_LIMIT;
+        GetCalorieLimitResponse response = new GetCalorieLimitResponse(calorieLimit);
+        response.setMessageResponseVariables(MessageConstants.GET_CALORIE_LIMIT_SUCCESSFUL + userId,
+                true, ReturnCodeConstants.SUCESS);
+        return response;
     }
 }

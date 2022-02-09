@@ -6,6 +6,7 @@ import com.toptal.caloriecount.exceptions.UserIdNotFoundException;
 import com.toptal.caloriecount.exceptions.UserNotAuthorizedException;
 import com.toptal.caloriecount.payloads.request.calorieLimit.UpdateCalorieLimitRequest;
 import com.toptal.caloriecount.payloads.request.foodEntry.FoodEntryRequest;
+import com.toptal.caloriecount.payloads.response.calorieLimit.GetCalorieLimitResponse;
 import com.toptal.caloriecount.payloads.response.misc.MessageResponse;
 import com.toptal.caloriecount.services.interfaces.CalorieLimitService;
 import com.toptal.caloriecount.shared.constants.ReturnCodeConstants;
@@ -43,4 +44,24 @@ public class CalorieLimitController {
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage(), false, "CC-411" ));
         }
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> getCalorieLimit(@PathVariable String userId) {
+        try {
+            log.info("Get Calorie Limit for: " + userId + " Service started");
+            GetCalorieLimitResponse response = calorieLimitService.getCalorieLimit(userId);
+            log.info("Get Calorie Limit for: " + userId + " Service completed successfully");
+            return ResponseEntity.ok(response);
+        }
+        catch(UserIdNotFoundException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.ok(new MessageResponse(e.getMessage(),
+                    false, ReturnCodeConstants.USER_NOT_FOUND_ERROR));
+        }
+        catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage(), false, "CC-411" ));
+        }
+    }
+
 }
