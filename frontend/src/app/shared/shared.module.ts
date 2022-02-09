@@ -9,6 +9,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { LoggedInAuthGuard } from './services/logged-in-auth-guard.service';
 import { ToggleSidebarService } from './services/toggle-sidebar.service';
 import { MaterialModule } from './modules/material.module';
+import { CalorieLimitService } from './services/calorie-limit.service';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { MaterialModule } from './modules/material.module';
     ModalService,
     AuthenticationService,
     LoggedInAuthGuard,
-    AuthGuard
+    AuthGuard,
+    CalorieLimitService
   ],
   exports: [
     ChartsModule,

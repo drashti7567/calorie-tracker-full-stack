@@ -1,4 +1,6 @@
-export interface GetFoodEntriesResponse {
+import { BaseResponse } from "../../base-response";
+
+export interface GetFoodEntriesResponse extends BaseResponse{
     calorieLimit?: number,
     foodEntryList?: FoodEntryFields[]
 }

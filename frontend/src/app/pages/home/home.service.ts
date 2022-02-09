@@ -20,13 +20,15 @@ export class HomeService {
     private searchCaloriesUrl = this.searchUrl + UrlConstants.SEARCH_CALORIES_URL;
 
 
-    public getFoodEntries(userId: string): Observable<GetFoodEntriesResponse> {
+    public getFoodEntries(userId: string, dateFrom?, dateTo?): Observable<GetFoodEntriesResponse> {
         /**
          * Function to get the users food entries
          * @param userId: Id of the user
          */
 
-        return this.http.get<GetFoodEntriesResponse>(`${this.foodEntryUrl}/${userId}`);
+        const params = `${!!dateFrom ? "dateFrom=" + dateFrom: ""}${!!dateTo ? "&dateTo=" + dateTo: ""};`
+
+        return this.http.get<GetFoodEntriesResponse>(`${this.foodEntryUrl}/${userId}?${params}`);
     }
 
     public addFoodEntry(request: FoodEntryRequest): Observable<BaseResponse> {

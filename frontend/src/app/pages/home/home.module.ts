@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from 'app/shared/shared.module';
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home.routing';
+import { HomeService } from './home.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { HomeRoutingModule } from './home.routing';
     HomeComponent
   ],
   providers: [
+    HomeService
   ],
   exports: [
   ]

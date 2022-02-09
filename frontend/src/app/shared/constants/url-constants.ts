@@ -14,4 +14,6 @@ export class UrlConstants {
     public static FOOD_ENTRY_URL = "/food-entry";
     public static ALL_ENTRIES_URL = "/all-entries";
 
+    public static CALORIE_LIMIT_URL = "/calorie-limit"
+
 }

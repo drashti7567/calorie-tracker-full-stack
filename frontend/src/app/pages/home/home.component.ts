@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbCalendar, NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { FoodEntryFields } from 'app/shared/models/response/foodEntry/get-food-entries-response.model';
+import { GetReportsResponse } from 'app/shared/models/response/reports/get-reports-response.model';
 import moment from 'moment';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { HomeService } from './home.service';
 
 
 @Component({
@@ -10,14 +15,17 @@ import moment from 'moment';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {}
+  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter,
+    private homeService: HomeService) { }
 
   public currentUser;
 
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+
   public toDate: NgbDate = this.calendar.getToday();
   public fromDate: NgbDate = new NgbDate(this.toDate.year, this.toDate.month, this.toDate.day);
-  
-  public maxDate = {year: this.toDate.year, month: this.toDate.month, day: this.toDate.day}
+
+  public maxDate = { year: this.toDate.year, month: this.toDate.month, day: this.toDate.day }
   public minDate = moment("01/01/2010", "DD/MM/YYYY").toDate();
 
   public displayMonths = 2;
@@ -25,6 +33,14 @@ export class HomeComponent implements OnInit {
   public showWeekNumbers = false;
   public outsideDays = 'visible';
   public hoveredDate;
+
+  public foodEntriesList: FoodEntryFields[];
+  public userCalorieLimit;
+
+  public dateWiseMap;
+  public totalCalorieDayWiseMap;
+  public defaultActiveId;
+  public object = Object;
 
 
   // Datepicker functions ------------------------------------------------------------------------
@@ -34,7 +50,7 @@ export class HomeComponent implements OnInit {
       this.fromDate = date;
     } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
       this.toDate = date;
-      // this.gridApi.purgeInfiniteCache();
+      this.getFoodEntries();
     } else {
       this.toDate = null;
       this.fromDate = date;
@@ -42,7 +58,8 @@ export class HomeComponent implements OnInit {
   }
 
   isHovered(date: NgbDate) {
-    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+    return this.fromDate && !this.toDate && this.hoveredDate &&
+      date.after(this.fromDate) && date.before(this.hoveredDate);
   }
 
   isInside(date: NgbDate) {
@@ -50,7 +67,8 @@ export class HomeComponent implements OnInit {
   }
 
   isRange(date: NgbDate) {
-    return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
+    return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) ||
+      this.isInside(date) || this.isHovered(date);
   }
 
   validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
@@ -60,8 +78,46 @@ export class HomeComponent implements OnInit {
 
   // -----------------------------------------------------------------------------------------------
 
+  private mapEntriesAccordingToDate(): void {
+    /**
+     * Function that given list of food entries - clubs same date entries together 
+     * and then populates them in a list.
+     */
+    this.dateWiseMap = {};
+    this.totalCalorieDayWiseMap = {};
+    this.foodEntriesList.forEach(entry => {
+      const entryDate = entry.eatingTime.substring(0,10);
+      if(!(entryDate in this.dateWiseMap)) {
+        this.dateWiseMap[entryDate] = [];
+        this.totalCalorieDayWiseMap[entryDate] = 0;
+      }
+      this.dateWiseMap[entryDate].push(entry);
+      this.totalCalorieDayWiseMap[entryDate] += entry.calories;
+    });
+  }
+
+  private getFoodEntries(): void {
+    /**
+     * Function that calls the backend service to get the food entries made by user.
+     */
+    const fromDate = !!this.fromDate ? `${String(this.fromDate.year).padStart(4, '0')}-${String(this.fromDate.month).padStart(2,'0')}-${String(this.fromDate.day).padStart(2, '0')}` : null;
+    const toDate = !!this.toDate ?  `${String(this.toDate.year).padStart(4, '0')}-${String(this.toDate.month).padStart(2,'0')}-${String(this.toDate.day).padStart(2, '0')}` : null;
+    this.homeService.getFoodEntries(this.currentUser.id, fromDate, toDate).pipe(takeUntil(this.destroy$)).subscribe(data => {
+      if(!!data.success) {
+        this.foodEntriesList = data.foodEntryList;
+        this.userCalorieLimit = !!data.calorieLimit ? data.calorieLimit : 2100;
+        console.log(this.foodEntriesList, this.userCalorieLimit);
+        this.mapEntriesAccordingToDate();
+      }
+    })
+
+
+  }
+
+  // -----------------------------------------------------------------------------------------------
+
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    console.log(this.currentUser);
+    this.getFoodEntries();
   }
 }
