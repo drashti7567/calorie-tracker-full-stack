@@ -4,6 +4,7 @@ import com.toptal.caloriecount.dao.impl.FoodEntryRepository;
 import com.toptal.caloriecount.dao.models.FoodEntry;
 import com.toptal.caloriecount.dao.models.Users;
 import com.toptal.caloriecount.payloads.response.reports.AverageCaloriePerUserResponse;
+import com.toptal.caloriecount.payloads.response.reports.EntriesPerDayResponse;
 import com.toptal.caloriecount.payloads.response.reports.GetReportsResponse;
 import com.toptal.caloriecount.services.impl.ReportsServiceImpl;
 import com.toptal.caloriecount.services.interfaces.ReportsService;
@@ -83,7 +84,11 @@ public class ReportsServiceImplTest {
         averageList.add(response2);
         averageList.add(response);
 
-        GetReportsResponse finalResponse = new GetReportsResponse(20, 20, null, null, null, null,  averageList);
+        EntriesPerDayResponse entriesPerDayResponse = new EntriesPerDayResponse("2022-12-01", "Thursday", 20);
+        List<EntriesPerDayResponse> list = new ArrayList<>();
+        list.add(entriesPerDayResponse);
+
+        GetReportsResponse finalResponse = new GetReportsResponse(20, 20, 3000F, 3000F, list, list,  averageList);
         finalResponse.setMessageResponseVariables(MessageConstants.GET_REPORTS_SUCCESSFULL, true, ReturnCodeConstants.SUCESS);
 
         return finalResponse;
