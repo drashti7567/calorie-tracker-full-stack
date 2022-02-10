@@ -112,7 +112,6 @@ export class HomeComponent implements OnInit {
       if (!!data.success) {
         this.foodEntriesList = data.foodEntryList;
         this.userCalorieLimit = !!data.calorieLimit ? data.calorieLimit : 2100;
-        console.log(this.foodEntriesList, this.userCalorieLimit);
         this.mapEntriesAccordingToDate();
       }
     })

@@ -1,5 +1,6 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NgbAccordionModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from 'app/shared/shared.module';
 import { ToastrService } from 'ngx-toastr';
@@ -13,12 +14,12 @@ import { HomeService } from './home.service';
   template: '',
   styles: []
 })
-export class MockAddEntryModalComponent {}
+export class MockAddEntryModalComponent { }
 
 export class MockHomeService {
   getFoodEntries(x1, x2, x3) {
     return of({});
-  } 
+  }
 }
 
 describe('HomeComponent', () => {
@@ -32,7 +33,7 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NgbDatepickerModule, NgbAccordionModule],
-      declarations: [ HomeComponent, MockAddEntryModalComponent ],
+      declarations: [HomeComponent, MockAddEntryModalComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         {
@@ -45,7 +46,7 @@ describe('HomeComponent', () => {
         }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -59,9 +60,19 @@ describe('HomeComponent', () => {
   });
 
   it('should create', () => {
-    // let homeService = fixture.debugElement.injector.get(HomeService);
-    // (Object.getOwnPropertyDescriptor(homeServiceSpy, "getFoodEntries")?.get as jasmine.Spy<() => any>).and.returnValue(of({}));
-    // spyOnProperty(homeServiceSpy, "getFoodEntries").and.returnValue(of({}));
     expect(component).toBeTruthy();
+  });
+
+  it('addNewFoodEntry Method is called on click of add-entry-btn-div', () => {
+    spyOn(component, 'addNewFoodEntry');
+    fixture.detectChanges();
+
+    let button = fixture.debugElement.query(By.css('.add-entry-btn-div')).nativeElement;
+    button.click();
+
+    fixture.whenStable().then(() => {
+
+      expect(component.addNewFoodEntry).toHaveBeenCalled();
+    })
   });
 });
