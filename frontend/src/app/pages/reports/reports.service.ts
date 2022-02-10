@@ -30,6 +30,6 @@ export class ReportsService {
          * Function to get all the users food entries
          */
 
-        return this.http.get<GetReportsResponse>(`${this.getReports}`);
+        return this.http.get<GetReportsResponse>(`${this.reportsURL}/`);
     }
 }

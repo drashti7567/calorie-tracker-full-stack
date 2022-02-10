@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from 'app/shared/shared.module';
 import { ReportsComponent } from './reports.component';
 import { ReportsRoutingModule } from './reports.routing';
+import { ReportsService } from './reports.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { ReportsRoutingModule } from './reports.routing';
     ReportsComponent
   ],
   providers: [
+    ReportsService
   ],
   exports: [
   ]
