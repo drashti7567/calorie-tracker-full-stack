@@ -83,7 +83,7 @@ public class ReportsServiceImplTest {
         averageList.add(response2);
         averageList.add(response);
 
-        GetReportsResponse finalResponse = new GetReportsResponse(20, 20, averageList);
+        GetReportsResponse finalResponse = new GetReportsResponse(20, 20, null, null, null, null,  averageList);
         finalResponse.setMessageResponseVariables(MessageConstants.GET_REPORTS_SUCCESSFULL, true, ReturnCodeConstants.SUCESS);
 
         return finalResponse;
