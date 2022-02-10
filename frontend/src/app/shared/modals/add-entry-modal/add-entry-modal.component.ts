@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitte
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { FoodEntryRequest } from 'app/shared/models/request/foodEntry/food-entry-request.model';
+import { FoodEntryFields } from 'app/shared/models/response/foodEntry/get-food-entries-response.model';
 import { ProductWithCalorieResponse } from 'app/shared/models/response/searchFood/product-with-calorie-response.model';
 import { AutoCompleteService } from 'app/shared/services/autocomplete.service';
 import { map } from 'jquery';
@@ -15,17 +16,20 @@ import { ModalService } from '../../components/modal/modal.service';
     templateUrl: './add-entry-modal.component.html',
     styleUrls: ['./add-entry-modal.component.scss']
 })
-export class AddEntryModalComponent implements OnInit {
+export class AddEntryModalComponent implements OnInit, OnChanges {
 
-    @Output("onMainButtonClick") onMainButtonClick = new EventEmitter();
+    @Output("onAddButtonClick") onAddButtonClick = new EventEmitter();
+    @Output("onUpdateButtonClick") onUpdateButtonClick = new EventEmitter();
 
     @Input("isComingFromAdmin") isComingFromAdmin: boolean = false;
+    @Input("entry") entry: FoodEntryFields = null;
 
     constructor(private modalService: ModalService, private formBuilder: FormBuilder,
         private calendar: NgbCalendar, private autocompleteService: AutoCompleteService) { }
 
     private currentUser;
     public addEntryForm;
+
     public usersList = [];
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -35,6 +39,9 @@ export class AddEntryModalComponent implements OnInit {
     public maxDate = { year: this.toDate.year, month: this.toDate.month, day: this.toDate.day }
 
     public disableSaveButton = true;
+
+    public title;
+    public description;
 
     // Typeahead functions ---------------------------------------------------------------------
 
@@ -77,8 +84,8 @@ export class AddEntryModalComponent implements OnInit {
             this.disableSaveButton =
                 !this.addEntryForm.get("foodName").valid || !this.addEntryForm.get("calories").valid ||
                 !this.addEntryForm.get("eatingTime").valid || !this.addEntryForm.get("eatingDate").valid ||
-                !this.addEntryForm.controls['eatingDate'].value.day || 
-                (!!this.isComingFromAdmin && !this.addEntryForm.get("username").valid);
+                !this.addEntryForm.controls['eatingDate'].value.day ||
+                (!!this.isComingFromAdmin && !this.addEntryForm.get("username").valid && !this.entry);
         });
     }
 
@@ -94,8 +101,8 @@ export class AddEntryModalComponent implements OnInit {
             entryDate: [{ value: today, disabled: true }, []],
             eatingDate: ["", [Validators.required]],
             eatingTime: ["", [Validators.required]],
-            userId: ["", []],
-            username: ["", [Validators.required]],
+            userId: [!!this.entry ? this.entry.userName : "", []],
+            username: [{ value: !!this.entry ? this.entry.userName : "", disabled: !!this.entry }, [Validators.required]],
             foodName: ["", [Validators.required]],
             calories: ["", [Validators.required, Validators.min(0)]]
         });
@@ -103,9 +110,46 @@ export class AddEntryModalComponent implements OnInit {
 
     ngOnInit(): void {
         this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        this.getUsersList();
         this.initializeForm();
         this.subscribeToFormValueChanges();
-        this.getUsersList();
+        this.title = !!this.entry ? "Update" : "Add";
+        this.description = !!this.entry ? "Editing" : "Adding";
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    private setFormValues(): void {
+        /**
+         * Function to set the form vaues from the selected entry to update
+         */
+        if (!this.entry) return; // for add entry - this fields will be null
+
+        this.addEntryForm.patchValue({
+            eatingDate: {
+                year: Number.parseInt(this.entry.eatingTime.substring(0, 4)),
+                month: Number.parseInt(this.entry.eatingTime.substring(5, 7)),
+                day: Number.parseInt(this.entry.eatingTime.substring(8, 10))
+            },
+            eatingTime: {
+                hour: Number.parseInt(this.entry.eatingTime.substring(11, 13)),
+                minute: Number.parseInt(this.entry.eatingTime.substring(14, 16)),
+            },
+            userId: this.entry.userId,
+            username: this.entry.userName,
+            foodName: this.entry.foodName,
+            calories: this.entry.calories
+        });
+
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.initializeForm();
+        this.subscribeToFormValueChanges();
+        this.title = !!this.entry ? "Update" : "Add";
+        this.description = !!this.entry ? "Editing" : "Adding";
+        this.setFormValues();
+
     }
 
     // Public functions called from UI starts ------------------------------------------------------
@@ -144,19 +188,22 @@ export class AddEntryModalComponent implements OnInit {
             `${this.addEntryForm.controls['eatingDate'].value.month}-` +
             `${this.addEntryForm.controls['eatingDate'].value.day} ` +
             `${this.addEntryForm.controls['eatingTime'].value.hour}:` +
-            `${this.addEntryForm.controls['eatingTime'].value.minute}:` +
-            `${this.addEntryForm.controls['eatingTime'].value.second}`;
+            `${this.addEntryForm.controls['eatingTime'].value.minute}:00`;
 
         const foodName = this.addEntryForm.controls["foodName"].value.foodName ||
             this.addEntryForm.controls["foodName"].value;
 
         const request: FoodEntryRequest = {
-            userId: !!this.isComingFromAdmin ? this.addEntryForm.controls["username"].value : this.currentUser.id,
+            userId: !!this.isComingFromAdmin ?
+                (!this.entry ? this.addEntryForm.controls["username"].value : this.entry.userId) :
+                this.currentUser.id,
             foodName: foodName,
             eatingTime: eatingTime,
             calories: this.addEntryForm.controls["calories"].value,
         }
         this.modalService.closeAll();
-        this.onMainButtonClick.emit(request);
+
+        if (!this.entry) this.onAddButtonClick.emit(request);
+        else this.onUpdateButtonClick.emit(request);
     }
 }

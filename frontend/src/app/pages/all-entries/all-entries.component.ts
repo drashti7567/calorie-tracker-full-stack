@@ -153,6 +153,7 @@ export class AllEntriesComponent {
     /**
      * FUnction to open the add entry modal.
      */
+     this.selectedEntry = null;
     this.modalService.open("add-entry-modal");
 
   }
@@ -166,11 +167,12 @@ export class AllEntriesComponent {
 
   }
 
-  public updateDeleteEntryModal(): void {
+  public updateEntryModal(entry): void {
     /**
      * FUnction to open the add entry modal.
      */
-    this.modalService.open("update-entry-modal");
+     this.selectedEntry = entry;
+    this.modalService.open("add-entry-modal");
 
   }
 
@@ -201,11 +203,11 @@ export class AllEntriesComponent {
       });
   }
 
-  public updateFoodEntry(entryId: string, request: FoodEntryRequest): void {
+  public updateFoodEntry(request: FoodEntryRequest): void {
     /**
      * Function to send post request to add new entry
      */
-    this.allEntriesService.updateFoodEntry(entryId, this.currentUser.id)
+    this.allEntriesService.updateFoodEntry(this.selectedEntry.entryId, request)
       .pipe(takeUntil(this.destroy$)).subscribe(data => {
         if (!!data.success) {
           this.toastService.success(data.message);

@@ -93,10 +93,12 @@
                                 <td class="pl-4">{{entry.creationTimestamp.split(".")[0].replace("T", " ")}}</td>
                                 <td class="pl-4">
                                     <div class="d-flex">
-                                        <div (click)="openDeleteEntryModal(entry)" class="cursor-pointer">
+                                        <div class="cursor-pointer" (click)="updateEntryModal(entry)">
+                                            <i class="fa fa-edit"></i>
+                                        </div>
+                                        <div (click)="openDeleteEntryModal(entry)" class=" ml-2 cursor-pointer">
                                             <i class="fa fa-trash"></i>
                                         </div>
-                                        <div class="ml-2 cursor-pointer"> <i class="fa fa-edit"></i></div>
                                     </div>
                                 </td>
                                 <!-- </ng-container> -->
@@ -111,4 +113,6 @@
 </div>
 
 <cc-delete-entry-modal [entry]="selectedEntry" (onMainButtonClick)="deleteFoodEntry($event)"></cc-delete-entry-modal>
-<cc-add-entry-modal [isComingFromAdmin]="true" (onMainButtonClick)="addNewFoodEntry($event)"></cc-add-entry-modal>
+<cc-add-entry-modal [isComingFromAdmin]="true" [entry]="selectedEntry" (onAddButtonClick)="addNewFoodEntry($event)"
+    (onUpdateButtonClick)="updateFoodEntry($event)">
+</cc-add-entry-modal>

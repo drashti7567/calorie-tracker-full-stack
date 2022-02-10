@@ -1,11 +1,11 @@
 <cc-modal id="add-entry-modal" [closeOnBgClick]="false">
     <div class="card-title mb-1 pt-2 pl-3 d-flex">
-        <h5>Add Food Entry</h5>
+        <h5>{{title}} Food Entry</h5>
     </div>
     <div class="card-body pb-2 overflow-auto">
 
         <div class="mb-4 h7 text-muted" *ngIf="!!isComingFromAdmin">
-            ** Adding entries in other users account will change that user's calorie history. Please proceed with
+            ** {{description}} entries in other users account will change that user's calorie history. Please proceed with
             caution.
         </div>
 
@@ -18,7 +18,7 @@
 
                     <div class="form-group eating-date-form-group mb-2">
                         <ngb-datepicker #dp (navigate)="addEntryForm.get('eatingDate').value = $event.next"
-                            formControlName="eatingDate" [maxDate]="maxDate"></ngb-datepicker>
+                        [formControl]="addEntryForm.controls['eatingDate']" [maxDate]="maxDate"></ngb-datepicker>
 
                         <small id="eatingDateHelp" class="form-text validation-error-message"
                             *ngIf="addEntryForm.get('eatingDate').dirty && addEntryForm.get('eatingDate').hasError('required')">
@@ -49,13 +49,16 @@
                                 aria-describedby="usernameHelp" placeholder="Select User" formControlName="username"> -->
 
                             <select required name="productTypes" id="username" aria-describedby="usernameHelp"
-                                placeholder="Select User" formControlName="username"
+                                placeholder="Select User" [formControl]="addEntryForm.controls['username']" *ngIf="!this.entry"
                                 class="form-control rounded-0 cursor-pointer">
                                 <!-- (selectionChange)="getUserData()"> -->
                                 <option *ngFor="let user of usersList" [value]="user.userId">
                                     {{user.name}} ({{user.userId}})
                                 </option>
                             </select>
+
+                            <input type="text" class="form-control rounded-0 cursor-pointer" id="username" *ngIf="!!this.entry"
+                                aria-describedby="usernameHelp" placeholder="Enter User Name" [formControl]="addEntryForm.controls['username']">
 
                             <button mat-icon-button matSuffix class="form-field-icon-button">
                                 <mat-icon>person</mat-icon>
