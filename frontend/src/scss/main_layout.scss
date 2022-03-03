@@ -1,8 +1,17 @@
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+
+@import "./variables/variables";
+@import "./material/material";
+
+@import "./form/form";
+@import "./form//ngb-accordian";
+
 @import "./partials/variables";
 @import "./partials/navbar";
 @import "./partials/navbar.scss";
 @import "./partials/sidebar";
 @import "./partials/themes";
+@import "./partials/loader";
 
 @import "./partials/dashboard";
 
@@ -20,7 +29,7 @@
 body {
   height: 100vh;
   margin: 0;
-  padding-top: 60px;
+  // padding-top: 60px;
 }
 
 .wrapper {

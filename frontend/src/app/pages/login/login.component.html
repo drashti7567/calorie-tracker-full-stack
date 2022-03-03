@@ -1,0 +1,71 @@
+<div class="login-page-wrapper">
+    <div class="background-image-wrapper">
+
+        <div class="login-form-wrapper">
+
+            <form name="loginForm" [formGroup]="loginFormGroup">
+
+                <div class="app-name-header-wrapper">
+                    <h2 class="app-name-header">Captain</h2>
+                </div>
+
+                <div class="form-group email-form-group mb-2">
+
+                    <!-- <label for="email">Email address</label> -->
+                    <div class="input-wrapper">
+                        <input type="email" class="form-control rounded-0" id="email" aria-describedby="emailHelp"
+                            placeholder="Enter email" formControlName="email">
+                        <button mat-icon-button matSuffix class="form-field-icon-button">
+                            <mat-icon>email</mat-icon>
+                        </button>
+                    </div>
+
+                    <small id="emailHelp" class="form-text validation-error-message"
+                        *ngIf=" loginFormGroup.get('email').dirty && loginFormGroup.get('email').hasError('email') && !loginFormGroup.get('email').hasError('required')">
+                        Please enter a valid Email.
+                    </small>
+                    <small id="emailHelp" class="form-text validation-error-message"
+                        *ngIf="loginFormGroup.get('email').dirty && loginFormGroup.get('email').hasError('required')">
+                        Email is <strong>required</strong>
+                    </small>
+
+                </div>
+
+                <div class="form-group password-form-group mb-2">
+                    <!-- <label for="password">Password</label> -->
+                    <div class="input-wrapper">
+                        <input type="password" class="form-control rounded-0" id="password"
+                            aria-describedby="passwordHelp" placeholder="Enter password" formControlName="password"
+                            [type]="hidePassword ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix class="form-field-icon-button"
+                            (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hidePassword">
+                            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </div>
+                    <small id="passwordHelp" class="form-text validation-error-message"
+                        *ngIf="loginFormGroup.get('password').dirty && loginFormGroup.get('password').hasError('required')">
+                        Password is <strong>required</strong>
+                    </small>
+                </div>
+
+
+                <div class="form-group login-button-form-group">
+                    <button [disabled]="disableLoginButton" class="login-button" (click)="onLoginButtonClick()">
+                        Login
+                    </button>
+                    <img class="loading-img" *ngIf="loading"
+                        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                </div>
+
+                <div class="forgot-password-wrapper">
+                    <a [routerLink]="['/forgot-password']" class="forgot-password-link">
+                        Forgot your Password?</a>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>

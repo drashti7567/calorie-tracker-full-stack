@@ -1,0 +1,39 @@
+.mat-calendar {
+    color: #000;
+    background-color: #fff;
+}
+
+.mat-calendar-table-header {
+    color:$text-primary-color !important;
+}
+
+.mat-calendar-arrow {
+    border-top-color:$text-primary-color !important;
+}
+
+.mat-calendar-body-label {
+    color:$text-primary-color;
+}
+
+.mat-calendar-body-cell-content,
+.mat-date-range-input-separator {
+    color: #000;
+}
+
+.mat-calendar-body-selected {
+    color: #fff;
+    background-color:$text-primary-color;
+}
+
+.mat-calendar-body-disabled
+    > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+    color: #d3d3d3;
+}
+
+.mat-calendar-body-in-range::before {
+    background-color: $layout-color;
+}
+
+.mat-form-field-type-mat-date-range-input .mat-form-field-infix {
+    width: 13rem !important;
+}

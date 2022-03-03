@@ -1,10 +1,10 @@
-import { CaloryPalPage } from './app.po';
+import { CaloriePalPage } from './app.po';
 
-describe('Calory Count App', () => {
-  let page: CaloryPalPage;
+describe('Calorie Count App', () => {
+  let page: CaloriePalPage;
 
   beforeEach(() => {
-    page = new CaloryPalPage();
+    page = new CaloriePalPage();
   });
 
   it('should display message saying app works', () => {

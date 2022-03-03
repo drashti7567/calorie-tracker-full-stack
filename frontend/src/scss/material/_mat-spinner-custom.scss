@@ -1,0 +1,21 @@
+.opaque-bg {
+    opacity: 60%;
+}
+
+.loading-overlay  {
+    margin-top: 18rem;
+    position: fixed;
+    z-index: 1000;
+    height: 100%;
+    width: 100%;
+}
+
+mat-spinner {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.mat-progress-spinner circle, .mat-spinner circle {
+    stroke: $layout-color !important;
+}
